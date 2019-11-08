@@ -27,7 +27,7 @@ Tensorflow (tested on 1.14.0, only for tensorboardX)
 You should first download the [**DATA**](https://drive.google.com/file/d/1aqPl8eUHKR1yTr4CX9lpzzmogp1mc3I3/view?usp=sharing) folder, which includes preprocess data, checkpoint and extracted keyphrase candidates for our result on the leardbord. Default directory structure should be setted as following : 
 
 ```
-src
+Bert2Tag
   |— DATA
     |— cached_features (saved preprocess data)
     |  |— openkp.train.json (OpenKP train dataset)
