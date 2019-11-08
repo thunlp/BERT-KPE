@@ -40,6 +40,7 @@ Bert2Tag
     |  |  |— vocab.txt
     |  |  |— config.json
     |  |  |— pytorch_model.bin
+    |  |
     |  |— output (our best checkpoint)
     |     |— epoch_4.checkpoint
     |
