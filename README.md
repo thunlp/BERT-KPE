@@ -167,5 +167,5 @@ Upon the Characteristics of the data, we formulated keyphrase extraction as a so
 
 ## Contact
 
-For any question, please contact **Si Sun** by email s-sun17@mails.tsinghua.edu.cn , we will try our best for solving.
+For any question, please contact **Si Sun** by email s-sun17@mails.tsinghua.edu.cn , we will try our best to solve.
 
