@@ -2,7 +2,7 @@
 
 This repository provides the code of the model named **BERT (Base) Sequence Tagging** , which outperforms the Baselines (MSMARCO Team) on the [**OpenKP Leaderboard**](http://www.msmarco.org/leaders.aspx).
 
-OpenKP (OpenKeyPhrase) is a large scale, open-domain keyphrase extraction dataset, which was first released in the paper [Open Domain Web Keyphrase Extraction Beyond Language Modeling](https://www.emnlp-ijcnlp2019.org/program/) at EMNLP-IJCNLP 2019. Now it is a part of the [MSMARCO](http://www.msmarco.org/) dataset family . 
+OpenKP (OpenKeyPhrase) is a large scale, open-domain keyphrase extraction dataset, which was first released in the paper [Open Domain Web Keyphrase Extraction Beyond Language Modeling](https://www.aclweb.org/anthology/D19-1521.pdf) at EMNLP-IJCNLP 2019. Now it is a part of the [MSMARCO](http://www.msmarco.org/) dataset family . 
 
 
 
