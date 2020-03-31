@@ -16,6 +16,7 @@ OpenKP (OpenKeyPhrase) is a large scale, open-domain keyphrase extraction datase
 
 ## Attention
 ```
+- We changed lines 115~112 of `eval_utils.py`, the F1 scores will be slightly improved. (SunSi / 2020.3.31)
 - Our model is trained on 2 Tesla T4 GPUs (2 * 16G), so we can set per_gpu_train_batch_size = 12.
 - If you change the batch_size on your GPUs, we suggested that you adjust the gradient_accumulation_steps, max_train_epochs, and warmup_proportion parameters to better train your own model.
 - We also provide the training loss for our best checkpoint : **Epoch Mean Loss=0.0471 (epoch=4)**
