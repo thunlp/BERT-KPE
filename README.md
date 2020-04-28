@@ -1,12 +1,8 @@
 # **BERT for Keyphrase Extraction** (Pytorch)
 
-This repository provides the code of our paper **Joint Keyphrase Chunking and Salience Ranking with BERT**.
+This repository provides the code of the paper **Joint Keyphrase Chunking and Salience Ranking with BERT**.
 
-In this paper, we conduct an empirical study of **5 keyphrase extraction models** with **3 BERT variants**, and then propose a multi-task model BERT-JointKPE.
-
-Experiments on two KPE benchmarks, [OpenKP](https://www.aclweb.org/anthology/D19-1521.pdf) with Bing web pages and [KP20K](https://www.aclweb.org/anthology/P17-1054.pdf) demonstrate JointKPE’s state-of-the-art and robust effectiveness.
-
-Our further analyses also show that JointKPE has advantages in predicting **long keyphrases** and **non-entity keyphrases**, which were challenging for previous KPE techniques.
+In this paper, we conduct an empirical study of **<u>5 keyphrase extraction models</u>** with **<u>3 BERT variants</u>**, and then propose a multi-task model BERT-JointKPE. Experiments on two KPE benchmarks, [OpenKP](https://www.aclweb.org/anthology/D19-1521.pdf) with Bing web pages and [KP20K](https://www.aclweb.org/anthology/P17-1054.pdf) demonstrate JointKPE’s state-of-the-art and robust effectiveness. Our further analyses also show that JointKPE has advantages in predicting **<u>long keyphrases</u>** and **<u>non-entity keyphrases</u>**, which were challenging for previous KPE techniques.
 
 Please cite our paper if our experimental results, analysis conclusions or the code are helpful to you.
 
@@ -15,11 +11,11 @@ Please cite our paper if our experimental results, analysis conclusions or the c
 
 |Index|Model|Descriptions|
 |:---:|:---|:-----------|
-|1|BERT-JointKP (EBert2Joint)|A multi-task model is trained jointly on the chunking task and the ranking task, balancing the estimation of keyphrase quality and salience. |
-|2|BERT-RankKPE (Bert2Rank)|Use a ranking network to learn the salience phrases in the documents. |
-|3|BERT-ChunkKPE (Bert2Chunk)|Use a chunking network to classify high quality keyphrases. |
-|4|BERT-TagKPE (Bert2Tag)|We modified the sequence tagging model to generate enough candidate keyphrases for a document. |
-|5|BERT-SpanKPE (Bert2Span)|We modified the span extraction model to extract multiple keyphrases from a document. |
+|1|**BERT-JointKPE** (Bert2Joint)|A **<u>multi-task</u>** model is trained jointly on the chunking task and the ranking task, balancing the estimation of keyphrase quality and salience. |
+|2|**BERT-RankKPE** (Bert2Rank)|Learn the salience phrases in the documents using a **<u>ranking</u>** network. |
+|3|**BERT-ChunkKPE** (Bert2Chunk)|Classify high quality keyphrases using a **<u>chunking</u>** network. |
+|4|**BERT-TagKPE** (Bert2Tag)|We modified the **<u>sequence tagging</u>** model to generate enough candidate keyphrases for a document. |
+|5|**BERT-SpanKPE** (Bert2Span)|We modified the **<u>span extraction</u>** model to extract multiple keyphrases from a document. |
 
 
 #### * BERT Variants
