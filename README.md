@@ -99,7 +99,6 @@ Tensorflow (tested on 1.14.0, only for tensorboardX)
 
   ```
   CUDA_VISIBLE_DEVICES=0,1 OMP_NUM_THREADS=2 python -m torch.distributed.launch --nproc_per_node=2 --master_port=1234 train.py
-
   # if you use DataParallel rather than DistributedDataParallel, remember to set --local_rank=-1
   ```
 
