@@ -1,6 +1,6 @@
 # **BERT for Keyphrase Extraction** (Pytorch)
 
-This repository provides the code of the paper **Joint Keyphrase Chunking and Salience Ranking with BERT**.
+This repository provides the code of the paper **Joint Keyphrase Chunking and Salience Ranking with BERT** (paper link will be updated).
 
 In this paper, we conduct an empirical study of **<u>5 keyphrase extraction models</u>** with **<u>3 BERT variants</u>**, and then propose a multi-task model BERT-JointKPE. Experiments on two KPE benchmarks, [OpenKP](https://www.aclweb.org/anthology/D19-1521.pdf) with Bing web pages and [KP20K](https://www.aclweb.org/anthology/P17-1054.pdf) demonstrate JointKPE’s state-of-the-art and robust effectiveness. Our further analyses also show that JointKPE has advantages in predicting **<u>long keyphrases</u>** and **<u>non-entity keyphrases</u>**, which were challenging for previous KPE techniques.
 
