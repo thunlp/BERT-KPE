@@ -25,14 +25,6 @@ In this paper, we conduct an empirical study of **<u>5 keyphrase extraction mode
 - [RoBERTa](https://arxiv.org/abs/1907.11692)
 
 
-<!--
-|Index|Variants|
-|:---:|:------------|
-|1|[BERT](https://arxiv.org/abs/1810.04805)|
-|2|[SpanBERT](https://arxiv.org/abs/1907.10529)|
-|3|[RoBERTa](https://arxiv.org/abs/1907.11692)|
- -->
-
 ## QUICKSTART
 
 ```
@@ -74,6 +66,7 @@ Tensorflow (tested on 1.14.0, only for tensorboardX)
   ```
   source train.sh
   ```
+  PS. Running the training script for the first time will take some time to perform preprocess such as tokenization, and by default, the processed features will be saved under ../data/cached_features, which can be directly loaded next time.
 
 - Optional arguments:
 
