@@ -1,26 +1,28 @@
-# **BERT (Base) Sequence Tagging on OpenKP** (Pytorch)
+# **BERT for Keyphrase Extraction** (Pytorch)
 
-This repository provides the code of the model named **BERT (Base) Sequence Tagging** , which outperforms the Baselines (MSMARCO Team) on the [**OpenKP Leaderboard**](http://www.msmarco.org/leaders.aspx).
+This repository provides the code of our study "Joint Keyphrase Chunking and Salience Ranking with BERT", which contains five different keyphrase extraction models with three BERT variants.
 
-OpenKP (OpenKeyPhrase) is a large scale, open-domain keyphrase extraction dataset, which was first released in the paper [Open Domain Web Keyphrase Extraction Beyond Language Modeling](https://www.emnlp-ijcnlp2019.org/program/) at EMNLP-IJCNLP 2019. Now it is a part of the [MSMARCO](http://www.msmarco.org/) dataset family .
+Please cite our paper if our experimental results, analysis conclusions or the code are helpful to you.
+
+#### * Model Classes
+
+|Index|Model|Descriptions|
+|:---:|:---|:-----------|
+|1|BERT-SpanKPE (Bert2Span)|We modified the span extraction model to extract multiple keyphrases from the document. |
+|2|BERT-TagKPE (Bert2Tag)|We modified the sequence tagging model to generate enough candidate keyphrases for the document. |
+|3|BERT-ChunkKPE (Bert2Chunk)|Use a chunking network to classify high quality keyphrases. |
+|4|BERT-RankKPE (Bert2Rank)|Use a ranking network to learn the salience phrases in the documents. |
+|5|BERT-JointKP (EBert2Joint)|A multi-task model is trained jointly on the chunking task and the ranking task, balancing the estimation of keyphrase quality and salience. |
 
 
+#### * BERT Variants
 
-#### Official Evaluation Results (ranked by F1 @3 on Eval)
+|Index|Variants|
+|:---:|:------------|
+|1|[BERT](https://arxiv.org/abs/1810.04805)|
+|2|[SpanBERT](https://arxiv.org/abs/1907.10529)|
+|3|[RoBERTa](https://arxiv.org/abs/1907.11692)|
 
-| Rank | Model                                                        | Submission Date    | Precision @1,@3,@5  |   Recall @1,@3,@5   |     F1 @1,**@3**,@5     |
-| :--- | :----------------------------------------------------------- | :----------------- | :-----------------: | :-----------------: | :---------------------: |
-| 1    | **BERT (Base) Sequence Tagging** Si Sun (Tsinghua University), Chenyan Xiong (MSR AI), Zhiyuan Liu (Tsinghua University) | November 5th, 2019 | 0.484, 0.312, 0.227 | 0.255, 0.469, 0.563 | 0.321, **0.361**, 0.314 |
-| 2    | **Baseline finetuned on Bing Queries** MSMARCO Team          | October 19th, 2019 | 0.397, 0.249, 0.149 | 0.215, 0.391, 0.391 | 0.267, **0.292**, 0.209 |
-| 3    | **Baseline** MSMARCO Team                                    | October 19th, 2019 | 0.365, 0.237, 0.142 | 0.196, 0.367, 0.367 | 0.244, **0.277**, 0.198 |
-
-## Attention
-```
-- We changed lines 115~112 of `eval_utils.py`, the F1 scores will be slightly improved. (SunSi / 2020.3.31)
-- Our model is trained on 2 Tesla T4 GPUs (2 * 16G), so we can set per_gpu_train_batch_size = 12.
-- If you change the batch_size on your GPUs, we suggested that you adjust the gradient_accumulation_steps, max_train_epochs, and warmup_proportion parameters to better train your own model.
-- We also provide the training loss for our best checkpoint : **Epoch Mean Loss=0.0471 (epoch=4)**
-```
 
 ## Quickstart
 
@@ -30,118 +32,134 @@ Pytorch 1.3.0
 Tensorflow (tested on 1.14.0, only for tensorboardX)
 ```
 
+### * Download
 
-You should first download the [**DATA**](https://drive.google.com/file/d/1aqPl8eUHKR1yTr4CX9lpzzmogp1mc3I3/view?usp=sharing) folder, which includes preprocess data, checkpoint and extracted keyphrase candidates for our result on the leardbord. Default directory structure should be setted as following :
+- First download and decompress our data folder to this repo, the folder includes benchmark datasets and pre-trained BERT variants.
 
-```
-Bert2Tag
-  |— DATA
-    |— cached_features (saved preprocess data)
-    |  |— openkp.train.json (OpenKP train dataset)
-    |  |— openkp.valid.json (OpenKP Dev dataset)
-    |  |— openkp.eval_public.json (OpenKP Valid dataset)
-    |  |— Dev_reference.json (OpenKP Dev ground-truth keyphrases for test)
-    |
-    |— pretrain_model
-    |  |— bert-base-cased
-    |  |  |— vocab.txt
-    |  |  |— config.json
-    |  |  |— pytorch_model.bin
-    |  |
-    |  |— output (our best checkpoint)
-    |     |— epoch_4.checkpoint
-    |
-    |— Pred (extracted keyphrase candidates)
-       |— Dev_candidate.json
-       |— EvalPublic_candidate.json (submitted to the leardbord)
-```
+  - [Data Download Link](https://drive.google.com/open?id=1UugkRsKM8GXPPrrZxWa8HvGe1nyWdd6F)
 
-P.S. `bert-base-cased` can also be download from [Huggingface's Pytorch-Transformers](https://github.com/huggingface/pytorch-transformers)
+- We also provide 15 checkpoints (5 KPE models * 3 BERT variants) trained on OpenKP training dataset.
 
+  - [Checkpoint Download Link](https://drive.google.com/open?id=13FvONBTM4NZZCR-I7LVypkFa0xihxWnM)
 
+### * Preprocess
 
-#### * Re-produce evaluation result on Dev using our checkpoint
-
-- **Get evaluation result using our generated keyphrase candidates**
+- To preprocess the source datasets using `preprocess.sh` in the `preprocess` folder:
 
   ```
-  python evaluate.py ./DATA/Pred/Dev_candidate.json ./DATA/cached_features/Dev_reference.json
+  source preprocess.sh
   ```
 
-  the`evaluate.py ` script is cloned from [official evaluation script](https://github.com/microsoft/OpenKP/blob/master/evaluate.py)  (we can only evaluate dev candidates because we don't know the ground-truths of Eval) , then the evaluation result on Dev can be shown as below :
+- Optional arguments:
 
   ```
-  ########################
-  Metrics
-
-  @1
-  F1:0.35075642965204235
-  P:0.47745839636913767
-  R:0.2980584972264246
-
-  @3
-  F1:0.36837115481593546
-  P:0.3011094301563288
-  R:0.5318204740292486
-
-  @5
-  F1:0.31765903032922704
-  P:0.22160363086232984
-  R:0.6389056984367121
-  #########################
+  --dataset_class         choices=['openkp', 'kp20k']
+  --source_dataset_dir    The path to the source dataset
+  --output_path           The dir to save preprocess data; default: ../data/prepro_dataset
   ```
 
-- **Generate keyphrase candidates using our checkpoint model**
+### * Train Models
 
-  ```
-  source test.sh
-  ```
-
-  The new generated keyphrases for Dev and Eval can be found in `./Pred`  folder .
-
-
-
-#### * Re-train a new model from scratch
-
-- **Train a new model using our preprocess data**
+- To train a new model from scratch using `train.sh` in the `scripts` folder:
 
   ```
   source train.sh
   ```
 
-  Several new files will be generated：
-
-  - `logging.txt` and `viso` folder (if use tensorboardX) : track the train & valid losses saved in `./Log` ;
-
-  - `epoch_i.checkpoint`  saved in `./output` after each i epoch.
-
-
-
-#### * Re-preprocess source OpenKP datasets
-
-- Download the OpenKP dataset from [MS MARCO](http://www.msmarco.org/dataset.aspx) website to your own directory
-
-- Preprocess the dataset using our `preprocess.py` script (it might take 2~3 hours)
+- Optional arguments:
 
   ```
-  python preprocess.py --source_dataset_dir "your own directory" --output_path "your save directory"
+  --dataset_class         choices=['openkp', 'kp20k']
+  --model_class           choices=['bert2span', 'bert2tag', 'bert2chunk', 'bert2rank', 'bert2joint']
+  --pretrain_model_type   choices=['bert-base-cased', 'spanbert-base-cased', 'roberta-base']
+  ```
+  Complete optional arguments can be seen in `config.py` in the `scripts` folder.
+
+- Training Parameters:
+
+  We always keep the following settings in all our experiments:
+  ```
+  args.warmup_proportion = 0.1
+  args.max_train_steps = 20810 (openkp) , 73430 (kp20k)
+  args.per_gpu_train_batch_size * max(1, args.n_gpu) * args.gradient_accumulation_steps = 64
   ```
 
+- Distributed Training
+
+  We recommend using `DistributedDataParallel` to train models on multiple GPUs (It's faster than `DataParallel`, but it will take up more memory)
+
+  ```
+  CUDA_VISIBLE_DEVICES=0,1 OMP_NUM_THREADS=2 python -m torch.distributed.launch --nproc_per_node=2 --master_port=1234 train.py
+  
+  # if you use DataParallel rather than DistributedDataParallel, remember to set --local_rank=-1
+  ```
+
+### * Inference
+
+- To evaluate models using trained checkpoints using `test.sh` in the `scripts` folder:
+
+  ```
+  source test.sh
+  ```
+
+- Optional arguments:
+
+  ```
+  --dataset_class         choices=['openkp', 'kp20k']
+  --model_class           choices=['bert2span', 'bert2tag', 'bert2chunk', 'bert2rank', 'bert2joint']
+  --pretrain_model_type   choices=['bert-base-cased', 'spanbert-base-cased', 'roberta-base']
+  --eval_checkpoint       The checkpoint file to be evaluated
+  ```
+
+### * Re-produce evaluation result using our checkpoints
+
+  - Run `test.sh`, and change the `eval_checkpoint` to the checkpoint files we provided to reproduce the following results.
+
+    ```
+    --dataset_class         openkp
+    --eval_checkpoint       The filepath of our provided checkpoint
+    ```
+
+## Evaluation Results (Ranked by F1@3 on OpenKP Dev)
+
+#### * BERT (Base)
+
+|Rank|Method|F1 @1,**@3**,@5|Precision @1,@3,@5|Recall @1,@3,@5|
+|:--:|:----:|:--------:|:---------------:|:------------:|
+|1|Bert2Joint|0.371, **0.384**, 0.326|0.504, 0.313, 0.227|0.315, 0.555, 0.657|
+|2|Bert2Rank|0.369, **0.381**, 0.325|0.502, 0.311, 0.227|0.315, 0.551, 0.655|
+|3|Bert2Tag|0.370, **0.374**, 0.318|0.502, 0.305, 0.222 | 0.315, 0.541, 0.642|
+|4|Bert2Chunk|0.370, **0.370**, 0.311|0.504, 0.302, 0.217|0.314, 0.533, 0.627|
+|5|Bert2Span|0.341, **0.340**, 0.293|0.466, 0.277, 0.203|0.289, 0.492, 0.593|
 
 
-## Overview
+#### * SpanBERT (Base)
 
-#### * Data Characteristics
+|Rank|Method|F1 @1,@3,@5|Precision @1,@3,@5|Recall @1,@3,@5|
+|:--:|:----:|:--------:|:---------------:|:------------:|
+|1|Bert2Joint|0.388, **0.393**, 0.333|0.527, 0.321, 0.232|0.331, 0.567, 0.671|
+|2|Bert2Rank|0.385, **0.390**, 0.332|0.521, 0.319, 0.232|0.328, 0.564, 0.666|
+|3|Bert2Tag|0.384, **0.385**, 0.327|0.520, 0.315, 0.228|0.327, 0.555, 0.657|
+|4|Bert2Chunk|0.378, **0.385**, 0.326|0.514, 0.314, 0.228|0.322, 0.555, 0.656|
+|5|Bert2Span|0.347, **0.359**, 0.304|0.477, 0.294, 0.212|0.293, 0.518, 0.613|
 
-The documents of the dataset come from real world webs , with a diversified topic domain distribution differs from previous keyphrase extraction datasets (focuse on a single sciencific-field).
 
-For each document, 1-3 most relevant keyphrase labels have been generated by expert annotators, **they have to appear in the document**.
+#### * RoBERTa (Base)
+
+|Rank|Method|F1 @1,@3,@5|Precision @1,@3,@5|Recall @1,@3,@5|
+|:--:|:----:|:--------:|:---------------:|:------------:|
+|1|Bert2Joint|0.391, **0.398**, 0.338|0.532, 0.325, 0.235|0.334, 0.577, 0.681|
+|2|Bert2Rank|0.388, **0.395**, 0.335|0.526, 0.322, 0.233|0.330, 0.570, 0.677|
+|3|Bert2Tag|0.387, **0.389**, 0.330|0.525, 0.318, 0.230|0.329, 0.562, 0.666|
+|4|Bert2Chunk|0.380, **0.382**, 0.327|0.518, 0.312, 0.228|0.324, 0.551, 0.660|
+|5|Bert2Span|0.358, **0.355**, 0.306|0.487, 0.289, 0.213|0.304, 0.513, 0.619|
 
 
+## Model Overview
 
-#### * Model Architectures
+#### * Bert2Chunk, Bert2Rank, Bert2Joint (See Paper)
 
-Upon the Characteristics of the data, we formulated keyphrase extraction as a soft-select sequence tagging task, and first introduced BERT into open-domian keyprhase extraction (as we know). We describe our model's workflow as the following 3 stages :
+#### * Bert2Tag (See Code)
 
 - **Word-Level Representations :**   We encode an input document into a sequence of WordPiece tokens' vectors with a pretrained [BERT](https://www.aclweb.org/anthology/N19-1423.pdf) (base), and then we pick up the first sub-token vector of each word to represent the input in word-level.
 
@@ -157,19 +175,16 @@ Upon the Characteristics of the data, we formulated keyphrase extraction as a so
 
 - **Document-Level Keyphrase :** At the Last stage, the recovering from phrase-level n-grams to document-level keyphrases can be naturally formulated as a ranking task.
 
-  Incorporating with term frequency, we employ **Min Pooling** to get the final score of each n-gram (we tested Min / Mean / LogMean Pooling , Min pooling is the best) . Based on the final scores, we extract 5 top ranked keyprhase candidates for each document.
+  Incorporating with term frequency, we employ **Min Pooling** to get the final score of each n-gram (we called it **Buckets Effect**: No matter how high a bucket, it depends on the height of the water in which the lowest piece of wood) . Based on the final scores, we extract 5 top ranked keyprhase candidates for each document.
 
+#### * Bert2Span (See Code)
 
+- **Word-Level Representations :** Same as Bert2Tag
+- **Phrase-Level Representations :** Traditional span extraction model could not extract multiple important keyphrase spans for the same document. Therefore, we propose an self-attention span extraction model.
 
-## Code Reference
+  Given the token representations \{t1, t2, ..., tn\}, we first calculate the probability that the token is the starting word Ps(ti), and then apply the single-head self-attention layer to calculate the ending word probability of all j>=i tokens Pe(tj).
 
-[1] https://github.com/huggingface/transformers
-
-[2] https://github.com/kamalkraj/BERT-NER/tree/experiment
-
-[3]  https://github.com/facebookresearch/DrQA
-
-[4] https://github.com/microsoft/OpenKP
+- **Document-Level Keyphrase :** We select the spans with the highest probability P = Ps(ti) * Pe(tj) as the keyphrase spans.
 
 
 
