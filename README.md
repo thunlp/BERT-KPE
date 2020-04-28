@@ -1,30 +1,43 @@
 # **BERT for Keyphrase Extraction** (Pytorch)
 
-This repository provides the code of our study "Joint Keyphrase Chunking and Salience Ranking with BERT", which contains five different keyphrase extraction models with three BERT variants.
+This repository provides the code of our paper **Joint Keyphrase Chunking and Salience Ranking with BERT**.
+
+In this paper, we conduct an empirical study of **5 keyphrase extraction models** with **3 BERT variants**, and then propose a multi-task model BERT-JointKPE.
+
+Experiments on two KPE benchmarks, [OpenKP](https://www.aclweb.org/anthology/D19-1521.pdf) with Bing web pages and [KP20K](https://www.aclweb.org/anthology/P17-1054.pdf) demonstrate JointKPE’s state-of-the-art and robust effectiveness.
+
+Our further analyses also show that JointKPE has advantages in predicting **long keyphrases** and **non-entity keyphrases**, which were challenging for previous KPE techniques.
 
 Please cite our paper if our experimental results, analysis conclusions or the code are helpful to you.
+
 
 #### * Model Classes
 
 |Index|Model|Descriptions|
 |:---:|:---|:-----------|
-|1|BERT-SpanKPE (Bert2Span)|We modified the span extraction model to extract multiple keyphrases from the document. |
-|2|BERT-TagKPE (Bert2Tag)|We modified the sequence tagging model to generate enough candidate keyphrases for the document. |
+|1|BERT-JointKP (EBert2Joint)|A multi-task model is trained jointly on the chunking task and the ranking task, balancing the estimation of keyphrase quality and salience. |
+|2|BERT-RankKPE (Bert2Rank)|Use a ranking network to learn the salience phrases in the documents. |
 |3|BERT-ChunkKPE (Bert2Chunk)|Use a chunking network to classify high quality keyphrases. |
-|4|BERT-RankKPE (Bert2Rank)|Use a ranking network to learn the salience phrases in the documents. |
-|5|BERT-JointKP (EBert2Joint)|A multi-task model is trained jointly on the chunking task and the ranking task, balancing the estimation of keyphrase quality and salience. |
+|4|BERT-TagKPE (Bert2Tag)|We modified the sequence tagging model to generate enough candidate keyphrases for a document. |
+|5|BERT-SpanKPE (Bert2Span)|We modified the span extraction model to extract multiple keyphrases from a document. |
 
 
 #### * BERT Variants
 
+- [BERT](https://arxiv.org/abs/1810.04805)
+- [SpanBERT](https://arxiv.org/abs/1907.10529)
+- [RoBERTa](https://arxiv.org/abs/1907.11692)
+
+
+<!--
 |Index|Variants|
 |:---:|:------------|
 |1|[BERT](https://arxiv.org/abs/1810.04805)|
 |2|[SpanBERT](https://arxiv.org/abs/1907.10529)|
 |3|[RoBERTa](https://arxiv.org/abs/1907.11692)|
+ -->
 
-
-## Quickstart
+## QUICKSTART
 
 ```
 python 3.5
@@ -32,7 +45,7 @@ Pytorch 1.3.0
 Tensorflow (tested on 1.14.0, only for tensorboardX)
 ```
 
-### * Download
+### 1/ Download
 
 - First download and decompress our data folder to this repo, the folder includes benchmark datasets and pre-trained BERT variants.
 
@@ -42,7 +55,7 @@ Tensorflow (tested on 1.14.0, only for tensorboardX)
 
   - [Checkpoint Download Link](https://drive.google.com/open?id=13FvONBTM4NZZCR-I7LVypkFa0xihxWnM)
 
-### * Preprocess
+### 2/ Preprocess
 
 - To preprocess the source datasets using `preprocess.sh` in the `preprocess` folder:
 
@@ -58,7 +71,7 @@ Tensorflow (tested on 1.14.0, only for tensorboardX)
   --output_path           The dir to save preprocess data; default: ../data/prepro_dataset
   ```
 
-### * Train Models
+### 3/ Train Models
 
 - To train a new model from scratch using `train.sh` in the `scripts` folder:
 
@@ -90,11 +103,11 @@ Tensorflow (tested on 1.14.0, only for tensorboardX)
 
   ```
   CUDA_VISIBLE_DEVICES=0,1 OMP_NUM_THREADS=2 python -m torch.distributed.launch --nproc_per_node=2 --master_port=1234 train.py
-  
+
   # if you use DataParallel rather than DistributedDataParallel, remember to set --local_rank=-1
   ```
 
-### * Inference
+### 4/ Inference
 
 - To evaluate models using trained checkpoints using `test.sh` in the `scripts` folder:
 
@@ -111,7 +124,7 @@ Tensorflow (tested on 1.14.0, only for tensorboardX)
   --eval_checkpoint       The checkpoint file to be evaluated
   ```
 
-### * Re-produce evaluation result using our checkpoints
+### 5/ Re-produce evaluation results using our checkpoints
 
   - Run `test.sh`, and change the `eval_checkpoint` to the checkpoint files we provided to reproduce the following results.
 
@@ -120,7 +133,9 @@ Tensorflow (tested on 1.14.0, only for tensorboardX)
     --eval_checkpoint       The filepath of our provided checkpoint
     ```
 
-## Evaluation Results (Ranked by F1@3 on OpenKP Dev)
+## * RESULTS
+
+  The following results are ranked by F1@3 on OpenKP Dev dataset, the eval results can be seen in the [OpenKP Leaderboard](https://microsoft.github.io/msmarco/).
 
 #### * BERT (Base)
 
@@ -155,11 +170,11 @@ Tensorflow (tested on 1.14.0, only for tensorboardX)
 |5|Bert2Span|0.358, **0.355**, 0.306|0.487, 0.289, 0.213|0.304, 0.513, 0.619|
 
 
-## Model Overview
+## MODEL OVERVIEW
 
-#### * Bert2Chunk, Bert2Rank, Bert2Joint (See Paper)
+### * BERT-JointKPE, RankKPE, ChunkKPE (See Paper)
 
-#### * Bert2Tag (See Code)
+### * Bert2Tag (See Code)
 
 - **Word-Level Representations :**   We encode an input document into a sequence of WordPiece tokens' vectors with a pretrained [BERT](https://www.aclweb.org/anthology/N19-1423.pdf) (base), and then we pick up the first sub-token vector of each word to represent the input in word-level.
 
@@ -177,7 +192,7 @@ Tensorflow (tested on 1.14.0, only for tensorboardX)
 
   Incorporating with term frequency, we employ **Min Pooling** to get the final score of each n-gram (we called it **Buckets Effect**: No matter how high a bucket, it depends on the height of the water in which the lowest piece of wood) . Based on the final scores, we extract 5 top ranked keyprhase candidates for each document.
 
-#### * Bert2Span (See Code)
+### * Bert2Span (See Code)
 
 - **Word-Level Representations :** Same as Bert2Tag
 - **Phrase-Level Representations :** Traditional span extraction model could not extract multiple important keyphrase spans for the same document. Therefore, we propose an self-attention span extraction model.
@@ -188,6 +203,6 @@ Tensorflow (tested on 1.14.0, only for tensorboardX)
 
 
 
-## Contact
+## CONTACT
 
 For any question, please contact **Si Sun** by email s-sun17@mails.tsinghua.edu.cn , we will try our best to solve.
