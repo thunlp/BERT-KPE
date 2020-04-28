@@ -169,9 +169,9 @@ Tensorflow (tested on 1.14.0, only for tensorboardX)
 
 ### * BERT-JointKPE, RankKPE, ChunkKPE (See Paper)
 
-### * Bert2Tag (See Code)
+### * BERT-TagKPE (See Code)
 
-- **Word-Level Representations :**   We encode an input document into a sequence of WordPiece tokens' vectors with a pretrained [BERT](https://www.aclweb.org/anthology/N19-1423.pdf) (base), and then we pick up the first sub-token vector of each word to represent the input in word-level.
+- **Word-Level Representations :**   We encode an input document into a sequence of WordPiece tokens' vectors with a pretrained BERT (or its variants), and then we pick up the first sub-token vector of each word to represent the input in word-level.
 
 - **Phrase-Level Representations :** We perform a **soft-select** method to decode phrase from word-level vector instead of hard-select used in the standard sequence tagging task .
 
@@ -187,9 +187,9 @@ Tensorflow (tested on 1.14.0, only for tensorboardX)
 
   Incorporating with term frequency, we employ **Min Pooling** to get the final score of each n-gram (we called it **Buckets Effect**: No matter how high a bucket, it depends on the height of the water in which the lowest piece of wood) . Based on the final scores, we extract 5 top ranked keyprhase candidates for each document.
 
-### * Bert2Span (See Code)
+### * BERT-SpanKPE (See Code)
 
-- **Word-Level Representations :** Same as Bert2Tag
+- **Word-Level Representations :** Same as BERT-TagKPE
 - **Phrase-Level Representations :** Traditional span extraction model could not extract multiple important keyphrase spans for the same document. Therefore, we propose an self-attention span extraction model.
 
   Given the token representations \{t1, t2, ..., tn\}, we first calculate the probability that the token is the starting word Ps(ti), and then apply the single-head self-attention layer to calculate the ending word probability of all j>=i tokens Pe(tj).
