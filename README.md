@@ -17,8 +17,15 @@ Please cite our paper if our experimental results, analysis conclusions or the c
 }
 ```
 
+### 🤠 What's New ?
 
-#### * Model Classes
+- **2020/9/5**
+
+  Compared with the OpenKP dataset we downloaded from MS MARCO in October of 2019 (all our experiments are based on this version of the dataset), **we found that the dataset has been updated**. We remind you to download the latest data from the official website. For comparison, we also provide the data version we use. (The dataset version issue was raised by Yansen Wang et al from CMU, thank them ! ) [~Tsinghua Cloud DownLoad](https://cloud.tsinghua.edu.cn/f/e036303c90ab482384d8/) or [~Email Us for Data](s-sun17@mails.tsinghua.edu.cn)
+
+
+
+### * Model Classes
 
 |Index|Model|Descriptions|
 |:---:|:---|:-----------|
@@ -29,7 +36,7 @@ Please cite our paper if our experimental results, analysis conclusions or the c
 |5|**BERT-SpanKPE** (Bert2Span)|We modified the **<u>span extraction</u>** model to extract multiple keyphrases from a document. |
 
 
-#### * BERT Variants
+### * BERT Variants
 
 - [BERT](https://arxiv.org/abs/1810.04805)
 - [SpanBERT](https://arxiv.org/abs/1907.10529)
