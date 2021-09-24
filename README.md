@@ -1,4 +1,4 @@
-# **BERT for Keyphrase Extraction** (Pytorch)
+# **BERT for Keyphrase Extraction** (PyTorch)
 
 This repository provides the code of the paper [**Capturing Global Informativeness in Open Domain Keyphrase Extraction**](https://arxiv.org/abs/2004.13639).
 
