@@ -7,9 +7,9 @@ In this paper, we conduct an empirical study of **<u>5 keyphrase extraction mode
 Please cite our paper if our experimental results, analysis conclusions or the code are helpful to you ~ :)
 
 ```
-@misc{sun2020joint,
+@article{sun2020joint,
     title={Joint Keyphrase Chunking and Salience Ranking with BERT},
-    author={Si Sun and Chenyan Xiong and Zhenghao Liu and Zhiyuan Liu and Jie Bao},
+    author={Si Sun, Zhenghao Liu, Chenyan Xiong, Zhiyuan Liu and Jie Bao},
     year={2020},
     eprint={2004.13639},
     archivePrefix={arXiv},
