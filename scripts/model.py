@@ -6,7 +6,7 @@ from torch import nn
 import torch.nn.functional as F
 from utils import override_args
 from bertkpe import Idx2Tag, networks, generator, config_class
-from bertkpe.transformers import AdamW, WarmupLinearSchedule
+from transformers import AdamW, get_linear_schedule_with_warmup
 logger = logging.getLogger()
 
 
@@ -51,39 +51,51 @@ class KeyphraseSpanExtraction(object):
         ]
         
         self.optimizer = AdamW(optimizer_grouped_parameters, lr=self.args.learning_rate, correct_bias=False)
-        self.scheduler = WarmupLinearSchedule(self.optimizer, warmup_steps=num_warmup_steps, t_total=num_total_steps)
+        self.scheduler = get_linear_schedule_with_warmup(self.optimizer, num_warmup_steps=num_warmup_steps, num_training_steps = -1)
         
     # -------------------------------------------------------------------------------------------
     # -------------------------------------------------------------------------------------------
     # train
-    def update(self, step, inputs):
+    def update(self, step, inputs, scaler):
         # Train mode
         self.network.train()
         
         # run !
-        loss = self.network(**inputs)
+        with torch.cuda.amp.autocast():
+            loss = self.network(**inputs)
 
-        if self.args.n_gpu > 1:
-            # mean() to average on multi-gpu parallel (not distributed) training
-            loss = loss.mean()
-            
-        if self.args.gradient_accumulation_steps > 1:
-            loss = loss / self.args.gradient_accumulation_steps
-            
+            if self.args.n_gpu > 1:
+                # mean() to average on multi-gpu parallel (not distributed) training
+                loss = loss.mean()
+                
+            if self.args.gradient_accumulation_steps > 1:
+                loss = loss / self.args.gradient_accumulation_steps
+        
+        
+
         if self.args.fp16:
-            with amp.scale_loss(loss, self.optimizer) as scaled_loss:
-                scaled_loss.backward()
-            torch.nn.utils.clip_grad_norm_(amp.master_params(self.optimizer), self.args.max_grad_norm)
+            scaler.scale(loss).backward()
         else:
             loss.backward()
             torch.nn.utils.clip_grad_norm_(self.network.parameters(), self.args.max_grad_norm)
 
         if (step + 1) % self.args.gradient_accumulation_steps == 0:
-            self.optimizer.step()
-            self.scheduler.step() 
-            
-            self.optimizer.zero_grad()
-            self.updates += 1
+            if self.args.fp16:
+                
+                scaler.step(self.optimizer)
+                self.scheduler.step() 
+                
+                scaler.update()
+                self.optimizer.zero_grad()
+                self.updates += 1
+            else: 
+                self.optimizer.step()
+                self.scheduler.step() 
+                
+                self.optimizer.zero_grad()
+                self.updates += 1
+        
+
         return loss.item()
     
     # -------------------------------------------------------------------------------------------
