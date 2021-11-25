@@ -1,11 +1,10 @@
-from . import transformers
 from . import dataloader
-from .transformers import BertTokenizer, RobertaTokenizer, BertConfig, RobertaConfig
+from transformers import BertTokenizer, RobertaTokenizer, BertConfig, RobertaConfig, DistilBertConfig, DistilBertTokenizer
 
 from . import networks
 from . import generator
 from . import evaluator
-from .evaluator import evaluate_openkp, evaluate_kp20k
+from .evaluator import evaluate_openkp, evaluate_kp20k, evaluate_wikinews
 
 from .constant import (PAD, 
                        UNK, 
@@ -25,8 +24,10 @@ from .constant import (PAD,
 
 tokenizer_class = {"bert-base-cased":BertTokenizer, 
                    "spanbert-base-cased":BertTokenizer,
-                   "roberta-base":RobertaTokenizer}
+                   "roberta-base":RobertaTokenizer,
+                   "distilbert-base-multilingual-cased":DistilBertTokenizer}
 
 config_class = {"bert-base-cased":BertConfig, 
                 "spanbert-base-cased":BertConfig,  
-                "roberta-base":RobertaConfig}
+                "roberta-base":RobertaConfig,
+                "distilbert-base-multilingual-cased":DistilBertConfig}

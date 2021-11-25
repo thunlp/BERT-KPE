@@ -27,6 +27,8 @@ def get_class(args):
     # Bert2Joint
     elif args.model_class == 'bert2joint' and args.pretrain_model_type in ['bert-base-cased', 'spanbert-base-cased']:
         return BertForChunkTFRanking
+    elif args.model_class == 'bert2joint' and args.pretrain_model_type in ['distilbert-base-multilingual-cased']:
+        return DistilBertForChunkTFRanking
     elif args.model_class == 'bert2joint' and args.pretrain_model_type == 'roberta-base':
         return RobertaForChunkTFRanking
     
@@ -52,3 +54,4 @@ from .Roberta2Rank import RobertaForTFRanking
 # bert2joint
 from .Bert2Joint import BertForChunkTFRanking
 from .Roberta2Joint import RobertaForChunkTFRanking
+from .DistilBert2Joint import DistilBertForChunkTFRanking
