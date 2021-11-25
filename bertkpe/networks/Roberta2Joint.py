@@ -8,10 +8,10 @@ from torch import nn
 import torch.nn.functional as F
 from torch.nn.parameter import Parameter
 from torch.nn import MarginRankingLoss, CrossEntropyLoss
-from ..transformers import BertPreTrainedModel, RobertaModel
+from transformers import BertPreTrainedModel, RobertaModel
 
 from itertools import repeat
-from torch._six import container_abcs
+import collections.abc as container_abcs
 
 logger = logging.getLogger()
 

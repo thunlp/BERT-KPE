@@ -5,7 +5,7 @@ import numpy as np
 from torch import nn
 import torch.nn.functional as F
 from torch.nn import NLLLoss
-from ..transformers import BertPreTrainedModel, BertModel
+from transformers import BertPreTrainedModel, BertModel
 
 
 logger = logging.getLogger()

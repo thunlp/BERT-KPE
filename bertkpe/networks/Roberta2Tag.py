@@ -4,7 +4,7 @@ import numpy as np
 from torch import nn
 import torch.nn.functional as F
 from torch.nn import CrossEntropyLoss
-from ..transformers import RobertaForTokenClassification
+from transformers import RobertaForTokenClassification
 
 logger = logging.getLogger()
 
