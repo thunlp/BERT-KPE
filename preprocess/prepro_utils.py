@@ -3,6 +3,13 @@ import string
 import logging
 import unicodedata
 from nltk.stem.porter import PorterStemmer
+import string
+import spacy
+from nltk.stem import SnowballStemmer
+
+# Load spacy model for stemming
+stemmer_spanish = SnowballStemmer("spanish")
+nlp = spacy.load("es_core_news_sm")
 
 stemmer = PorterStemmer()
 
@@ -282,6 +289,35 @@ def norm_phrase_to_char(phrase_list):
 def norm_doc_to_char(word_list):
 
     norm_char = unicodedata.normalize("NFD", " ".join(word_list))
-    stem_char = " ".join([stemmer.stem(w.strip()) for w in norm_char.split(" ")])
+    stem_char = " ".join([stemmer_spanish.stem(w.strip()) for w in norm_char.split(" ")])
 
     return norm_char, stem_char
+
+def lemmatizer(text):
+    """function for lemmatizing the words"""
+    doc = nlp(text[0])
+    return " ".join([word.lemma_ for word in doc])
+
+
+def remove_punctuation(text):
+    """function for removing punctuations from the text"""
+    return text.translate(str.maketrans("", "", string.punctuation))
+
+
+def remove_fullstop(text):
+    """removing just fullstops from the text"""
+    return text.replace(".", "")
+
+def find_sequence(seq, _list):
+    """Finding all the indices of the keyphrases in the passage"""
+    seq_list = seq
+    all_occurrence = [
+        idx
+        for idx in [i for i, x in enumerate(_list) if x == seq_list[0]]
+        if seq_list == _list[idx : idx + len(seq_list)]
+    ]
+    return -1 if not all_occurrence else all_occurrence
+
+def lower_list(_list):
+    """lowercasing the text in the list"""
+    return [stemmer.stem(x.lower()) for x in _list]
