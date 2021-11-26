@@ -13,13 +13,13 @@ def add_default_args(parser):
     modes = parser.add_argument_group('Modes')
     modes.add_argument('--run_mode', type=str, choices=['train', 'test'],
                        help='Select running mode. ')
-    modes.add_argument('--dataset_class', type=str, choices=['openkp', 'kp20k'],
+    modes.add_argument('--dataset_class', type=str, choices=['openkp', 'kp20k', 'multidata'],
                        help='Select datasets.')
     modes.add_argument('--model_class', type=str, 
                        choices=['bert2span', 'bert2tag', 'bert2chunk', 'bert2rank', 'bert2joint'],
                        help='Select different model types.')
     modes.add_argument("--pretrain_model_type", type=str,
-                       choices=['bert-base-cased', 'spanbert-base-cased', 'roberta-base'],
+                       choices=['bert-base-cased', 'spanbert-base-cased', 'roberta-base', 'distilbert-base-multilingual-cased'],
                        help="Select pretrain model type.")
     # ---------------------------------------------------------------------------------------------
     # Filesystem
@@ -130,7 +130,7 @@ def init_args_config(args):
         args.viso_folder = os.path.join(args.save_folder, 'viso')
         if not os.path.exists(args.viso_folder):
             os.mkdir(args.viso_folder)
-            
+
     # checkpoint folder
     if args.run_mode == 'train':
         args.checkpoint_folder = os.path.join(args.save_folder, 'checkpoints')

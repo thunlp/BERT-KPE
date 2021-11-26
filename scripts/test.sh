@@ -1,11 +1,12 @@
 export DATA_PATH=../data
 
-CUDA_VISIBLE_DEVICES=2,3 python test.py --run_mode test \
+CUDA_VISIBLE_DEVICES=0 python test.py --run_mode test \
 --model_class bert2joint \
---pretrain_model_type roberta-base \
+--local_rank -1 \
+--pretrain_model_type distilbert-base-multilingual-cased \
 --dataset_class openkp \
 --per_gpu_test_batch_size 64 \
 --preprocess_folder $DATA_PATH/prepro_dataset \
 --pretrain_model_path $DATA_PATH/pretrain_model \
 --cached_features_dir $DATA_PATH/cached_features \
---eval_checkpoint /home/sunsi/checkpoints/bert2joint/bert2joint.openkp.roberta.checkpoint \
+--eval_checkpoint /home/amitchaulwar/PoC/BERT-KPE/results/train_bert2joint_openkp_distilbert_11.01_14.45/checkpoints/bert2joint.openkp.distilbert.epoch_11.checkpoint \
