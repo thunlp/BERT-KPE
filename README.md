@@ -53,7 +53,7 @@ Please cite our paper if our experimental results, analysis conclusions or the c
 
 ```
 python 3.5
-Pytorch 1.3.0
+pip install -r requirements.txt
 ```
 
 ### 1/ Download
