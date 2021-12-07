@@ -25,7 +25,11 @@ Please cite our paper if our experimental results, analysis conclusions or the c
 
   [~DownLoad from Here](https://thunlp.oss-cn-qingdao.aliyuncs.com/OpenMatch/MSMARCO/BERT-KPE/Official_OpenKP.zip) or ~Email s-sun17@mails.tsinghua.edu.cn for Data
 
-<!-- https://cloud.tsinghua.edu.cn/f/e036303c90ab482384d8/ -->
+- **2021/12/7**
+
+    Our repo now adds **Multilingual-KPE** and **FP16 Training Mode**. Thanks, [Amit Chaulwar](https://github.com/AmitChaulwar)!
+    Amit also shared their zero-shot results on the Wikinews (French), Cacic (Spanish), Pak2018 (Polish), wicc (spanish), 110-PT-BN-KP (Portugese). 
+    
 
 ### * Model Classes
 
@@ -43,7 +47,7 @@ Please cite our paper if our experimental results, analysis conclusions or the c
 - [BERT](https://arxiv.org/abs/1810.04805)
 - [SpanBERT](https://arxiv.org/abs/1907.10529)
 - [RoBERTa](https://arxiv.org/abs/1907.11692)
-
+- [DistilBERT](https://arxiv.org/abs/1910.01108)
 
 ## QUICKSTART
 
