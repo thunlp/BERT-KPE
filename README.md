@@ -36,7 +36,7 @@ Please cite our paper if our experimental results, analysis conclusions or the c
 |3|**BERT-ChunkKPE** (Bert2Chunk)|Classify high quality keyphrases using a **<u>chunking</u>** network. |
 |4|**BERT-TagKPE** (Bert2Tag)|We modified the **<u>sequence tagging</u>** model to generate enough candidate keyphrases for a document. |
 |5|**BERT-SpanKPE** (Bert2Span)|We modified the **<u>span extraction</u>** model to extract multiple keyphrases from a document. |
-
+|6|**DistilBERT-JointKPE** (DistilBert2Joint)|A **<u>multi-task</u>** model is trained jointly on the chunking task and the ranking task, balancing the estimation of keyphrase quality and salience. |
 
 ### * BERT Variants
 
@@ -74,10 +74,14 @@ Tensorflow (tested on 1.14.0, only for tensorboardX)
 - Optional arguments:
 
   ```
-  --dataset_class         choices=['openkp', 'kp20k']
+  --dataset_class         choices=['openkp', 'kp20k', 'multidata]
   --source_dataset_dir    The path to the source dataset
   --output_path           The dir to save preprocess data; default: ../data/prepro_dataset
   ```
+
+- To preprocess the multilingual dataset, download respective datasets from 
+https://github.com/LIAAD/KeywordExtractor-Datasets and use scripts `jsonify_multidata.py` to preprocess the datasets.
+The dataset can be split into train, dev, and test sets using `split_json.py`.
 
 ### 3/ Train Models
 
@@ -91,9 +95,9 @@ Tensorflow (tested on 1.14.0, only for tensorboardX)
 - Optional arguments:
 
   ```
-  --dataset_class         choices=['openkp', 'kp20k']
+  --dataset_class         choices=['openkp', 'kp20k', 'multidata']
   --model_class           choices=['bert2span', 'bert2tag', 'bert2chunk', 'bert2rank', 'bert2joint']
-  --pretrain_model_type   choices=['bert-base-cased', 'spanbert-base-cased', 'roberta-base']
+  --pretrain_model_type   choices=['bert-base-cased', 'spanbert-base-cased', 'roberta-base', 'distilbert-base-cased']
   ```
   Complete optional arguments can be seen in `config.py` in the `scripts` folder.
 
@@ -126,9 +130,9 @@ Tensorflow (tested on 1.14.0, only for tensorboardX)
 - Optional arguments:
 
   ```
-  --dataset_class         choices=['openkp', 'kp20k']
+  --dataset_class         choices=['openkp', 'kp20k', 'multidata']
   --model_class           choices=['bert2span', 'bert2tag', 'bert2chunk', 'bert2rank', 'bert2joint']
-  --pretrain_model_type   choices=['bert-base-cased', 'spanbert-base-cased', 'roberta-base']
+  --pretrain_model_type   choices=['bert-base-cased', 'spanbert-base-cased', 'roberta-base', 'distilbert-base-cased']
   --eval_checkpoint       The checkpoint file to be evaluated
   ```
 

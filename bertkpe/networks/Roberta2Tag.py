@@ -4,23 +4,30 @@ import numpy as np
 from torch import nn
 import torch.nn.functional as F
 from torch.nn import CrossEntropyLoss
-from ..transformers import RobertaForTokenClassification
+from transformers import RobertaForTokenClassification
 
 logger = logging.getLogger()
 
 
 class RobertaForSeqTagging(RobertaForTokenClassification):
-    def forward(self, input_ids, attention_mask, valid_ids, active_mask, valid_output, labels=None):
-        
+    def forward(
+        self,
+        input_ids,
+        attention_mask,
+        valid_ids,
+        active_mask,
+        valid_output,
+        labels=None,
+    ):
+
         # --------------------------------------------------------------------------------
         # Bert Embedding Outputs
-        outputs = self.roberta(input_ids=input_ids,
-                               attention_mask=attention_mask)
-        
+        outputs = self.roberta(input_ids=input_ids, attention_mask=attention_mask)
+
         sequence_output = outputs[0]
-        
+
         # --------------------------------------------------------------------------------
-        # Valid Outputs : get first token vector  
+        # Valid Outputs : get first token vector
         batch_size = sequence_output.size(0)
         for i in range(batch_size):
             valid_num = sum(valid_ids[i]).item()
@@ -32,11 +39,11 @@ class RobertaForSeqTagging(RobertaForTokenClassification):
         # Dropout
         sequence_output = self.dropout(valid_output)
         logits = self.classifier(sequence_output)
-        
+
         # --------------------------------------------------------------------------------
         # Active Logits
-        active_loss = active_mask.view(-1) == 1 # [False, True, ...]
-        active_logits = logits.view(-1, self.num_labels)[active_loss] # False
+        active_loss = active_mask.view(-1) == 1  # [False, True, ...]
+        active_logits = logits.view(-1, self.num_labels)[active_loss]  # False
 
         if labels is not None:
             loss_fct = CrossEntropyLoss()
