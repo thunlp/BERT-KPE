@@ -54,7 +54,6 @@ Please cite our paper if our experimental results, analysis conclusions or the c
 ```
 python 3.5
 Pytorch 1.3.0
-Tensorflow (tested on 1.14.0, only for tensorboardX)
 ```
 
 ### 1/ Download
