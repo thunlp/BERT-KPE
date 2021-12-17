@@ -1,0 +1,66 @@
+12/17/2021 08:51:27 AM: [ COMMAND: test.py --run_mode test --local_rank -1 --model_class bert2joint --pretrain_model_type roberta-base --dataset_class openkp --per_gpu_test_batch_size 32 --preprocess_folder /data/sunsi/experiments/BERT-KPE/data/prepro_dataset --pretrain_model_path /data/sunsi/experiments/BERT-KPE/data/pretrain_model --cached_features_dir /data/sunsi/experiments/BERT-KPE/data/cached_features --eval_checkpoint /data/sunsi/experiments/BERT-KPE/checkpoints/bert2joint/bert2joint.openkp.roberta.checkpoint ]
+12/17/2021 08:51:27 AM: [ preprocess_folder = /data/sunsi/experiments/BERT-KPE/data/prepro_dataset/openkp ]
+12/17/2021 08:51:27 AM: [ Pretrain Model Type = roberta-base ]
+12/17/2021 08:51:27 AM: [ Process rank: -1, device: cuda, n_gpu: 1, distributed training: False, 16-bits training: False ]
+12/17/2021 08:51:27 AM: [ start setting tokenizer, dataset and dataloader (local_rank = -1)...  ]
+12/17/2021 08:51:27 AM: [ Model name '/data/sunsi/experiments/BERT-KPE/data/pretrain_model/roberta-base' not found in model shortcut name list (roberta-base, roberta-large, roberta-large-mnli, distilroberta-base, roberta-base-openai-detector, roberta-large-openai-detector). Assuming '/data/sunsi/experiments/BERT-KPE/data/pretrain_model/roberta-base' is a path or url to a directory containing tokenizer files. ]
+12/17/2021 08:51:27 AM: [ Didn't find file /data/sunsi/experiments/BERT-KPE/data/pretrain_model/roberta-base/added_tokens.json. We won't load it. ]
+12/17/2021 08:51:27 AM: [ Didn't find file /data/sunsi/experiments/BERT-KPE/data/pretrain_model/roberta-base/special_tokens_map.json. We won't load it. ]
+12/17/2021 08:51:27 AM: [ Didn't find file /data/sunsi/experiments/BERT-KPE/data/pretrain_model/roberta-base/tokenizer_config.json. We won't load it. ]
+12/17/2021 08:51:27 AM: [ loading file /data/sunsi/experiments/BERT-KPE/data/pretrain_model/roberta-base/vocab.json ]
+12/17/2021 08:51:27 AM: [ loading file /data/sunsi/experiments/BERT-KPE/data/pretrain_model/roberta-base/merges.txt ]
+12/17/2021 08:51:27 AM: [ loading file None ]
+12/17/2021 08:51:27 AM: [ loading file None ]
+12/17/2021 08:51:27 AM: [ loading file None ]
+12/17/2021 08:51:27 AM: [ start reloading:  bert2joint (roberta) for openkp (dev) cached features ... ]
+12/17/2021 08:51:34 AM: [ success load 6616 data ]
+12/17/2021 08:51:34 AM: [  ************************** Initilize Model **************************  ]
+12/17/2021 08:51:34 AM: [ Loading model /data/sunsi/experiments/BERT-KPE/checkpoints/bert2joint/bert2joint.openkp.roberta.checkpoint ]
+12/17/2021 08:51:34 AM: [ Overriding saved run_mode: train --> test ]
+12/17/2021 08:51:34 AM: [ Overriding saved model_class: roberta2selfchunktfrank --> bert2joint ]
+12/17/2021 08:51:34 AM: [ Overriding saved preprocess_folder: /data3/private/sunsi/DATA/cached_features/roberta_data/openkp --> /data/sunsi/experiments/BERT-KPE/data/prepro_dataset/openkp ]
+12/17/2021 08:51:34 AM: [ Overriding saved pretrain_model_path: /data3/private/sunsi/DATA/pretrain_model --> /data/sunsi/experiments/BERT-KPE/data/pretrain_model ]
+12/17/2021 08:51:34 AM: [ Overriding saved save_path: ./Results --> ../results ]
+12/17/2021 08:51:34 AM: [ Overriding saved max_train_epochs: 11 --> 10 ]
+12/17/2021 08:51:34 AM: [ Overriding saved max_train_steps: 20810 --> 0 ]
+12/17/2021 08:51:34 AM: [ Overriding saved per_gpu_train_batch_size: 4 --> 8 ]
+12/17/2021 08:51:34 AM: [ Overriding saved gradient_accumulation_steps: 8 --> 4 ]
+12/17/2021 08:51:34 AM: [ Overriding saved eval_checkpoint:  --> /data/sunsi/experiments/BERT-KPE/checkpoints/bert2joint/bert2joint.openkp.roberta.checkpoint ]
+12/17/2021 08:51:34 AM: [ Overriding saved display_iter: 130 --> 200 ]
+12/17/2021 08:51:34 AM: [ Overriding saved save_checkpoint: True --> False ]
+12/17/2021 08:51:34 AM: [ Overriding saved cache_dir: /data3/private/sunsi/DATA/pretrain_model/roberta-base --> /data/sunsi/experiments/BERT-KPE/data/pretrain_model/roberta-base ]
+12/17/2021 08:51:34 AM: [ Overriding saved save_folder: ./Results/train_roberta2selfchunktfrank_openkp_02.03_12.31 --> ../results/test_bert2joint_openkp_roberta_12.17_08.51 ]
+12/17/2021 08:51:34 AM: [ Overriding saved log_file: ./Results/train_roberta2selfchunktfrank_openkp_02.03_12.31/logging.txt --> ../results/test_bert2joint_openkp_roberta_12.17_08.51/logging.txt ]
+12/17/2021 08:51:34 AM: [ Overriding saved n_gpu: 2 --> 1 ]
+12/17/2021 08:51:34 AM: [ Overriding saved test_batch_size: 64 --> 32 ]
+12/17/2021 08:51:34 AM: [ Config num_labels = 2 ]
+12/17/2021 08:51:34 AM: [ loading configuration file /data/sunsi/experiments/BERT-KPE/data/pretrain_model/roberta-base/config.json ]
+12/17/2021 08:51:34 AM: [ Model config {
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "is_decoder": false,
+  "layer_norm_eps": 1e-05,
+  "max_position_embeddings": 514,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "output_past": true,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 1,
+  "use_bfloat16": false,
+  "vocab_size": 50265
+}
+ ]
+12/17/2021 08:51:34 AM: [ loading weights file /data/sunsi/experiments/BERT-KPE/data/pretrain_model/roberta-base/pytorch_model.bin ]
+12/17/2021 08:51:39 AM: [ Weights of RobertaForChunkTFRanking not initialized from pretrained model: ['cnn2gram.cnn_list.0.weight', 'cnn2gram.cnn_list.0.bias', 'cnn2gram.cnn_list.1.weight', 'cnn2gram.cnn_list.1.bias', 'cnn2gram.cnn_list.2.weight', 'cnn2gram.cnn_list.2.bias', 'cnn2gram.cnn_list.3.weight', 'cnn2gram.cnn_list.3.bias', 'cnn2gram.cnn_list.4.weight', 'cnn2gram.cnn_list.4.bias', 'classifier.weight', 'classifier.bias', 'chunk_classifier.weight', 'chunk_classifier.bias'] ]
+12/17/2021 08:51:39 AM: [ Weights from pretrained model not used in RobertaForChunkTFRanking: ['lm_head.bias', 'lm_head.dense.weight', 'lm_head.dense.bias', 'lm_head.layer_norm.weight', 'lm_head.layer_norm.bias', 'lm_head.decoder.weight'] ]
+12/17/2021 08:51:39 AM: [ loaded checkpoint state_dict ]
+12/17/2021 08:51:39 AM: [ success loaded epoch_6 checkpoints ! From : /data/sunsi/experiments/BERT-KPE/checkpoints/bert2joint/bert2joint.openkp.roberta.checkpoint ]

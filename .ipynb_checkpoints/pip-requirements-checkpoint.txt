@@ -1,0 +1,6 @@
+tensorboardX==2.4.1
+nltk==3.6.5
+scikit-learn==1.0.1
+spacy==3.2.1
+boto3
+sacremoses
