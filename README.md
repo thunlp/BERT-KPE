@@ -17,13 +17,18 @@ Please cite our paper if our experimental results, analysis conclusions or the c
 }
 ```
 
-### CONTACT
+## CONTACT
 
-For any question, please contact **Si Sun** by email s-sun17@mails.tsinghua.edu.cn (I check email almost everyday 😉), we will try our best to solve.
+For any question, feel free to create an issue, and we will try our best to solve. \
+If the problem is more urgent, you can send an email to me at the same time (I check email almost everyday 😉).
+
+```
+NAME: Si Sun
+EMAIL: s-sun17@mails.tsinghua.edu.cn
+```
 
 
-
-### 🤠 What's New ?
+## 🤠 What's New ?
 
 - **2020/9/5**
 
@@ -37,7 +42,7 @@ For any question, please contact **Si Sun** by email s-sun17@mails.tsinghua.edu.
     Amit also shared their zero-shot results on the Wikinews (French), Cacic (Spanish), Pak2018 (Polish), wicc (spanish), 110-PT-BN-KP (Portugese). 
     
 
-### * Model Classes
+## Spported Model Classes
 
 |Index|Model|Descriptions|
 |:---:|:---|:-----------|
@@ -48,7 +53,7 @@ For any question, please contact **Si Sun** by email s-sun17@mails.tsinghua.edu.
 |5|**BERT-SpanKPE** (Bert2Span)|We modified the **<u>span extraction</u>** model to extract multiple keyphrases from a document. |
 |6|**DistilBERT-JointKPE** (DistilBert2Joint)|A **<u>multi-task</u>** model is trained jointly on the chunking task and the ranking task, balancing the estimation of keyphrase quality and salience. |
 
-### * BERT Variants
+## BERT Variants Tested
 
 - [BERT](https://arxiv.org/abs/1810.04805)
 - [SpanBERT](https://arxiv.org/abs/1907.10529)
@@ -222,4 +227,3 @@ The dataset can be split into train, dev, and test sets using `split_json.py`.
   Given the token representations \{t1, t2, ..., tn\}, we first calculate the probability that the token is the starting word Ps(ti), and then apply the single-head self-attention layer to calculate the ending word probability of all j>=i tokens Pe(tj).
 
 - **Document-Level Keyphrase :** We select the spans with the highest probability P = Ps(ti) * Pe(tj) as the keyphrase spans.
-
