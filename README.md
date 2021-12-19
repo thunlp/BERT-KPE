@@ -17,6 +17,12 @@ Please cite our paper if our experimental results, analysis conclusions or the c
 }
 ```
 
+### CONTACT
+
+For any question, please contact **Si Sun** by email s-sun17@mails.tsinghua.edu.cn (I check email almost everyday 😉), we will try our best to solve.
+
+
+
 ### 🤠 What's New ?
 
 - **2020/9/5**
@@ -217,8 +223,3 @@ The dataset can be split into train, dev, and test sets using `split_json.py`.
 
 - **Document-Level Keyphrase :** We select the spans with the highest probability P = Ps(ti) * Pe(tj) as the keyphrase spans.
 
-
-
-## CONTACT
-
-For any question, please contact **Si Sun** by email s-sun17@mails.tsinghua.edu.cn , we will try our best to solve.
