@@ -5,10 +5,10 @@ import unicodedata
 from nltk.stem.porter import PorterStemmer
 import string
 import spacy
-from nltk.stem import SnowballStemmer
+# from nltk.stem import SnowballStemmer
 
 # Load spacy model for stemming
-stemmer_spanish = SnowballStemmer("spanish")
+# stemmer_spanish = SnowballStemmer("spanish")
 nlp = spacy.load("es_core_news_sm")
 
 stemmer = PorterStemmer()
@@ -289,7 +289,8 @@ def norm_phrase_to_char(phrase_list):
 def norm_doc_to_char(word_list):
 
     norm_char = unicodedata.normalize("NFD", " ".join(word_list))
-    stem_char = " ".join([stemmer_spanish.stem(w.strip()) for w in norm_char.split(" ")])
+    stem_char = " ".join([stemmer.stem(w.strip()) for w in norm_char.split(" ")]) ## for english
+#     stem_char = " ".join([stemmer_spanish.stem(w.strip()) for w in norm_char.split(" ")])
 
     return norm_char, stem_char
 
