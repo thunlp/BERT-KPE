@@ -82,7 +82,7 @@ class KeyphraseSpanExtraction(object):
         self.network.train()
 
         # run !
-        with torch.cuda.amp.autocast():
+        with torch.cuda.amp.autocast(enabled=self.args.fp16):
             loss = self.network(**inputs)
 
             if self.args.n_gpu > 1:
