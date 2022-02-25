@@ -20,19 +20,11 @@ Please cite our paper if our experimental results, analysis conclusions or the c
 ## CONTACT
 
 For any question, feel free to create an issue, and we will try our best to solve. \
-If the problem is more urgent, you can send an email to me at the same time (I check email almost everyday 😉).
+**If the problem is more urgent**, you can send an email to me at the same time (I check email almost everyday 😉).
 
 ```
 NAME: Si Sun
 EMAIL: s-sun17@mails.tsinghua.edu.cn
-```
-
-## Requirements
-
-```
-python 3.8
-pytorch 1.9.0
-pip install -r pip-requirements.txt
 ```
 
 
@@ -68,6 +60,16 @@ pip install -r pip-requirements.txt
 - [RoBERTa](https://arxiv.org/abs/1907.11692)
 - [DistilBERT](https://arxiv.org/abs/1910.01108)
 
+
+## Requirements
+
+```
+python 3.8
+pytorch 1.9.0
+pip install -r pip-requirements.txt
+```
+
+## QUICKSTART
 
 ### 1/ Download
 
