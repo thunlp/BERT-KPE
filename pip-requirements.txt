@@ -4,3 +4,4 @@ scikit-learn==1.0.1
 spacy==3.2.1
 boto3
 sacremoses
+spacy-model-en_core_web_sm
