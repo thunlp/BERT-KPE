@@ -1,2 +1,0 @@
-pytorch==1.9.0
-spacy-model-en_core_web_sm
