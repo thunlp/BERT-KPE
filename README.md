@@ -27,6 +27,14 @@ NAME: Si Sun
 EMAIL: s-sun17@mails.tsinghua.edu.cn
 ```
 
+## Requirements
+
+```
+python 3.8
+pytorch 1.9.0
+pip install -r pip-requirements.txt
+```
+
 
 ## 🤠 What's New ?
 
@@ -60,13 +68,6 @@ EMAIL: s-sun17@mails.tsinghua.edu.cn
 - [RoBERTa](https://arxiv.org/abs/1907.11692)
 - [DistilBERT](https://arxiv.org/abs/1910.01108)
 
-## QUICKSTART
-
-```
-python 3.8
-conda install --file conda-requirements.txt
-pip install -r pip-requirements.txt
-```
 
 ### 1/ Download
 
