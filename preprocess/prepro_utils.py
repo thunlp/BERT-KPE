@@ -9,7 +9,10 @@ import spacy
 
 # Load spacy model for stemming
 # stemmer_spanish = SnowballStemmer("spanish")
-nlp = spacy.load("es_core_news_sm")
+# nlp = spacy.load("es_core_news_sm")
+
+import es_core_news_sm
+nlp = es_core_news_sm.load()
 
 stemmer = PorterStemmer()
 
